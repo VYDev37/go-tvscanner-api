@@ -9,12 +9,23 @@ import (
 	"time"
 )
 
+/*
+"price_earnings_ttm",
+	"earnings_per_share_diluted_yoy_growth_ttm",
+	"dividends_yield_current",
+	"fundamental_currency_code",
+*/
+
 type TVAsset struct {
 	Ticker    string
 	Price     float64
 	MarketCap float64
-	PBV       float64
-	NetIncome float64
+	// PBV       float64
+	NetIncome               float64
+	PERatio                 float64
+	EPS                     float64
+	CurrentDividenYield     float64
+	FundamentalCurrencyCode string
 }
 
 type TVPayload struct {
@@ -30,30 +41,11 @@ type TVPayload struct {
 func FetchIDXData() ([]TVAsset, error) {
 	url := "https://scanner.tradingview.com/indonesia/scan"
 
-	payload := TVPayload{
-		Filter: []map[string]interface{}{
-			{"left": "type", "operation": "in_range", "right": []string{"stock", "dr", "fund"}},
-			{"left": "subtype", "operation": "in_range", "right": []string{"common", "foreign-issuer", ""}},
-		},
-		Options: map[string]interface{}{"lang": "en"},
-		Markets: []string{"indonesia"},
-		// INI WAJIB ADA BIAR NGGAK ERROR 400
-		Symbols: map[string]interface{}{
-			"query":   map[string]interface{}{"types": []string{}},
-			"tickers": []string{},
-		},
-		Columns: []string{
-			"name",
-			"close",
-			"market_cap_basic",
-			// "price_to_book_ratio",
-			"net_income",
-		},
-		Sort:  map[string]string{"sortBy": "name", "sortOrder": "asc"},
-		Range: []int{0, 100}, // Tes 100 data dulu
+	payload := BuildIDXPayload(0, 100)
+	body, err := json.Marshal(payload)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to marshal json: %v", err)
 	}
-
-	body, _ := json.Marshal(payload)
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(body))
 
 	// 2. HEADER DILENGKAPIN
@@ -72,7 +64,7 @@ func FetchIDXData() ([]TVAsset, error) {
 	// 3. BACA ERRORNYA KALAU DITOLAK
 	if resp.StatusCode != 200 {
 		rawBody, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("Server TradingView nolak! Status: %d, Alasan: %s", resp.StatusCode, string(rawBody))
+		return nil, fmt.Errorf("TradingView blocked! Status: %d, %s", resp.StatusCode, string(rawBody))
 	}
 
 	var result struct {
@@ -88,7 +80,7 @@ func FetchIDXData() ([]TVAsset, error) {
 
 	var assets []TVAsset
 	for _, item := range result.Data {
-		if len(item.D) < 4 {
+		if len(item.D) < 7 {
 			continue
 		}
 
@@ -97,7 +89,11 @@ func FetchIDXData() ([]TVAsset, error) {
 			Price:     convertToFloat(item.D[1]),
 			MarketCap: convertToFloat(item.D[2]),
 			// PBV:       convertToFloat(item.D[3]),
-			NetIncome: convertToFloat(item.D[3]),
+			NetIncome:               convertToFloat(item.D[3]),
+			PERatio:                 convertToFloat(item.D[4]),
+			EPS:                     convertToFloat(item.D[5]),
+			CurrentDividenYield:     convertToFloat(item.D[6]),
+			FundamentalCurrencyCode: fmt.Sprintf("%v", item.D[7]),
 		})
 	}
 
