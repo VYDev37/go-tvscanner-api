@@ -64,8 +64,8 @@ type M map[string]interface{}
 var DefaultColumns = []string{
 	// 1. Overview & Base Identity
 	"name", "sector", "market", "fundamental_currency_code",
-	"close", "change", "volume", "relative_volume_10d_calc",
-	"description", "market_cap_basic", "float_shares_outstanding_current", "float_shares_percent_current",
+	"description", "close", "change", "volume",
+	"relative_volume_10d_calc", "market_cap_basic", "float_shares_outstanding_current", "float_shares_percent_current",
 
 	// 2. Valuation
 	"price_earnings_ttm", "price_earnings_growth_ttm", "price_sales_current", "price_book_fq",
