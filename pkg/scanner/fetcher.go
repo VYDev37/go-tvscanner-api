@@ -86,6 +86,7 @@ func FetchStockData(opts FetcherOptions) ([]TVAsset, error) {
 			Sector:                  fmt.Sprintf("%v", row["sector"]),
 			Market:                  fmt.Sprintf("%v", row["market"]),
 			FundamentalCurrencyCode: fmt.Sprintf("%v", row["fundamental_currency_code"]),
+			Description:             fmt.Sprintf("%v", row["description"]),
 			Price:                   Money(convertToFloat(row["close"])),
 			Change:                  RawNum(convertToFloat(row["change"])),
 			Volume:                  RawNum(convertToFloat(row["volume"])),
@@ -125,6 +126,8 @@ func FetchStockData(opts FetcherOptions) ([]TVAsset, error) {
 			EBITDA:          Money(convertToFloat(row["ebitda_ttm"])),
 			EPS:             Money(convertToFloat(row["earnings_per_share_diluted_ttm"])),
 			EPSGrowth:       Percent(convertToFloat(row["earnings_per_share_diluted_yoy_growth_ttm"])),
+			FiscalPeriod:    fmt.Sprintf("%v", row["fiscal_period_current"]),
+			FiscalPeriodEnd: Epoch(convertToInt64(row["fiscal_period_end_current"])),
 
 			// --- 5. Balance Sheet ---
 			TotalAssets:            Money(convertToFloat(row["total_assets_fq"])),
@@ -176,6 +179,22 @@ func convertToFloat(i interface{}) float64 {
 		return v
 	case int:
 		return float64(v)
+	default:
+		return 0
+	}
+}
+
+func convertToInt64(i interface{}) int64 {
+	if i == nil {
+		return 0
+	}
+	switch v := i.(type) {
+	case float64:
+		return int64(v)
+	case int64:
+		return v
+	case int:
+		return int64(v)
 	default:
 		return 0
 	}

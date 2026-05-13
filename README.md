@@ -53,11 +53,13 @@ func main() {
 
 	for i, it := range filteredData {
 		fmt.Printf("\n[%d] %s \n", i+1, it.Ticker)
-		fmt.Printf(" ├─ Sector    : %s\n", it.Sector)
-		fmt.Printf(" ├─ Price     : %s %s\n", it.FundamentalCurrencyCode, it.Price)
-		fmt.Printf(" ├─ P/E Ratio : %s\n", it.PERatio)
-		fmt.Printf(" ├─ PBV Ratio : %s\n", it.PBV)
-		fmt.Printf(" └─ ROE       : %s\n", it.ROE)
+		fmt.Printf(" └─ Company Name : %s\n", it.Description)
+		fmt.Printf(" ├─ Sector       : %s\n", it.Sector)
+		fmt.Printf(" ├─ Price        : %s %s\n", it.FundamentalCurrencyCode, it.Price)
+		fmt.Printf(" ├─ P/E Ratio    : %s\n", it.PERatio)
+		fmt.Printf(" └─ P/S Ratio    : %s\n", it.PSRatio)
+		fmt.Printf(" ├─ PBV Ratio    : %s\n", it.PBV)
+		fmt.Printf(" └─ ROE          : %s\n", it.ROE)
 	}
 }
 ```

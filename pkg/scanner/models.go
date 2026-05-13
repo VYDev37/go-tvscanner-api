@@ -10,6 +10,7 @@ type TVAsset struct {
 	Sector                  string  // Sector classification (e.g., "Finance")
 	Market                  string  // Exchange market (e.g., "indonesia")
 	FundamentalCurrencyCode string  // The currency code (e.g., "IDR")
+	Description             string  // Company name
 	Price                   Money   // Current close price
 	Change                  RawNum  // Price change value
 	Volume                  RawNum  // Trading volume
@@ -49,6 +50,8 @@ type TVAsset struct {
 	EBITDA          Money   // EBITDA (TTM)
 	EPS             Money   // Earnings Per Share Diluted (TTM)
 	EPSGrowth       Percent // EPS Diluted YoY Growth (TTM)
+	FiscalPeriod    string  // Example: "2026-Q1"
+	FiscalPeriodEnd Epoch   // Fiscal end date (unix timestamp)
 
 	// --- 5. Balance Sheet ---
 	TotalAssets            Money // Total Assets (FQ)
@@ -90,6 +93,7 @@ type Percent float64
 type Ratio float64
 type Money float64
 type RawNum float64
+type Epoch int64
 
 func (p Percent) String() string { return fmt.Sprintf("%.2f%%", p) }
 func (r Ratio) String() string   { return fmt.Sprintf("%.2fx", r) }

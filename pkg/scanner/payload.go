@@ -65,7 +65,7 @@ var DefaultColumns = []string{
 	// 1. Overview & Base Identity
 	"name", "sector", "market", "fundamental_currency_code",
 	"close", "change", "volume", "relative_volume_10d_calc",
-	"market_cap_basic", "float_shares_outstanding_current", "float_shares_percent_current",
+	"description", "market_cap_basic", "float_shares_outstanding_current", "float_shares_percent_current",
 
 	// 2. Valuation
 	"price_earnings_ttm", "price_earnings_growth_ttm", "price_sales_current", "price_book_fq",
@@ -78,7 +78,7 @@ var DefaultColumns = []string{
 
 	// 4. Income Statement
 	"total_revenue_ttm", "total_revenue_yoy_growth_ttm", "gross_profit_ttm", "oper_income_ttm", "net_income_ttm", "ebitda_ttm",
-	"earnings_per_share_diluted_ttm", "earnings_per_share_diluted_yoy_growth_ttm",
+	"earnings_per_share_diluted_ttm", "earnings_per_share_diluted_yoy_growth_ttm", "fiscal_period_current", "fiscal_period_end_current",
 
 	// 5. Balance Sheet
 	"total_assets_fq", "total_current_assets_fq", "cash_n_short_term_invest_fq",
