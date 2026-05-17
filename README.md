@@ -106,7 +106,8 @@ It returns the `TVAsset` struct, populated with all key metrics mapped from Trad
 
 | Metric | Property | Go Type | TV Column |
 |--------|----------|---------|-----------|
-| Ticker / Name | `Ticker` | `string` | `name` |
+| Ticker | `Ticker` | `string` | `name` |
+| Company Name | `Description` | `string` | `description` |
 | Sector | `Sector` | `string` | `sector` |
 | Market | `Market` | `string` | `market` |
 | Currency | `FundamentalCurrencyCode` | `string` | `fundamental_currency_code` |
