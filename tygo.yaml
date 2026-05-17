@@ -1,0 +1,16 @@
+
+packages:
+  - path: "github.com/VYDev37/go-tvscanner-api/pkg/scanner"
+    exclude_files:
+      - "fetcher.go"
+      - "store.go"
+    
+    type_mappings:
+      Money: "number"
+      Percent: "number"
+      Ratio: "number"
+      RawNum: "number"
+      Epoch: "number"
+    
+    output_path: "./scanner.ts" 
+    indent: "  "
