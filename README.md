@@ -64,6 +64,37 @@ func main() {
 }
 ```
 
+## Global Store (Caching)
+
+For applications that need to frequently access stock data without repeatedly calling the TradingView API, you can utilize the built-in thread-safe `GlobalStore`.
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/VYDev37/go-tvscanner-api/pkg/scanner"
+)
+
+func main() {
+	// 1. Fetch data from the API
+	data, _ := scanner.FetchStockData(scanner.FetcherOptions{Market: "indonesia", Limit: 1000})
+
+	// 2. Update the Global Store
+	scanner.GlobalStore.UpdateData(data)
+
+	// 3. Retrieve data anywhere in your app securely
+	cachedData := scanner.GlobalStore.GetData()
+	fmt.Printf("Total cached assets: %d\n", len(cachedData))
+	
+	// You can also access specific stocks efficiently via the Index map
+	if bca, exists := scanner.GlobalStore.Index["BBCA"]; exists {
+		fmt.Printf("BBCA Price: %s %s\n", bca.FundamentalCurrencyCode, bca.Price)
+	}
+}
+```
+
 ## Supported "Golden Columns"
 
 This library automatically fetches a comprehensive payload covering Valuation, Profitability, Income Statement, Balance Sheet, Cashflow, Dividends, and Technicals.
@@ -79,6 +110,7 @@ It returns the `TVAsset` struct, populated with all key metrics mapped from Trad
 | Sector | `Sector` | `string` | `sector` |
 | Market | `Market` | `string` | `market` |
 | Currency | `FundamentalCurrencyCode` | `string` | `fundamental_currency_code` |
+| Company Name | `Description` | `string` | `description` |
 | Close Price | `Price` | `scanner.Money` | `close` |
 | Change | `Change` | `scanner.RawNum` | `change` |
 | Volume | `Volume` | `scanner.RawNum` | `volume` |
@@ -136,6 +168,8 @@ It returns the `TVAsset` struct, populated with all key metrics mapped from Trad
 | EBITDA | `EBITDA` | `scanner.Money` | `ebitda_ttm` |
 | EPS (Diluted) | `EPS` | `scanner.Money` | `earnings_per_share_diluted_ttm` |
 | EPS Growth | `EPSGrowth` | `scanner.Percent` | `earnings_per_share_diluted_yoy_growth_ttm` |
+| Fiscal Period | `FiscalPeriod` | `string` | `fiscal_period_current` |
+| Period End | `FiscalPeriodEnd` | `scanner.Epoch` | `fiscal_period_end_current` |
 
 </details>
 
