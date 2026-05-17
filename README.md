@@ -75,7 +75,8 @@ It returns the `TVAsset` struct, populated with all key metrics mapped from Trad
 
 | Metric | Property | Go Type | TV Column |
 |--------|----------|---------|-----------|
-| Ticker / Name | `Ticker` | `string` | `name` |
+| Ticker | `Ticker` | `string` | `name` |
+| Company Name | `Description` | `string` | `description` |
 | Sector | `Sector` | `string` | `sector` |
 | Market | `Market` | `string` | `market` |
 | Currency | `FundamentalCurrencyCode` | `string` | `fundamental_currency_code` |
@@ -136,6 +137,8 @@ It returns the `TVAsset` struct, populated with all key metrics mapped from Trad
 | EBITDA | `EBITDA` | `scanner.Money` | `ebitda_ttm` |
 | EPS (Diluted) | `EPS` | `scanner.Money` | `earnings_per_share_diluted_ttm` |
 | EPS Growth | `EPSGrowth` | `scanner.Percent` | `earnings_per_share_diluted_yoy_growth_ttm` |
+| Fiscal Period | `FiscalPeriod` | `string` | `fiscal_period_current` |
+| Fiscal Period End | `FiscalPeriodEnd` | `scanner.Epoch` | `fiscal_period_end_current` |
 
 </details>
 
