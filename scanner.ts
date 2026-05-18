@@ -11,94 +11,94 @@ export interface TVAsset {
   /**
    * --- 1. Overview & Base Identity ---
    */
-  name: string; // Ticker symbol (e.g., "BBCA")
+  ticker: string; // Ticker symbol (e.g., "BBCA")
   sector: string; // Sector classification (e.g., "Finance")
   market: string; // Exchange market (e.g., "indonesia")
   fundamental_currency_code: string; // The currency code (e.g., "IDR")
   description: string; // Company name
-  close: Money; // Current close price
+  price: Money; // Current close price
   change: RawNum; // Price change value
   volume: RawNum; // Trading volume
-  relative_volume_10d_calc: Ratio; // Relative volume compared to 10-day average
-  market_cap_basic: Money; // Basic market capitalization
-  float_shares_outstanding_current: RawNum; // Free Float (in qty)
-  float_shares_percent_current: Percent; // Free Float percentage
+  relative_volume_10d: Ratio; // Relative volume compared to 10-day average
+  market_cap: Money; // Basic market capitalization
+  free_float_qty: RawNum; // Free Float (in qty)
+  free_float_percentage: Percent; // Free Float percentage
   /**
    * --- 2. Valuation ---
    */
-  price_earnings_ttm: Ratio; // Price to Earnings (TTM)
-  price_earnings_growth_ttm: Ratio; // PEG Ratio (TTM) - PEG < 1 means undervalued
-  price_sales_current: Ratio; // Price to Sales (Current)
-  price_book_fq: Ratio; // Price to Book Value (FQ)
-  price_to_cash_ratio: Ratio; // Price to Cash Ratio
-  price_free_cash_flow_ttm: Ratio; // Price to Free Cash Flow (TTM)
-  enterprise_value_current: Money; // Enterprise Value (Current)
-  enterprise_value_ebitda_ttm: Ratio; // Enterprise Value / EBITDA (TTM)
-  enterprise_value_to_revenue_ttm: Ratio; // Enterprise Value to Revenue (TTM)
-  enterprise_value_to_ebit_ttm: Ratio; // Enterprise Value to EBIT (TTM)
+  pe_ratio: Ratio; // Price to Earnings (TTM)
+  peg_ratio: Ratio; // PEG Ratio (TTM) - PEG < 1 means undervalued
+  ps_ratio: Ratio; // Price to Sales (Current)
+  pbv: Ratio; // Price to Book Value (FQ)
+  price_to_cash: Ratio; // Price to Cash Ratio
+  price_to_fcf: Ratio; // Price to Free Cash Flow (TTM)
+  enterprise_value: Money; // Enterprise Value (Current)
+  ev_ebitda: Ratio; // Enterprise Value / EBITDA (TTM)
+  ev_to_revenue: Ratio; // Enterprise Value to Revenue (TTM)
+  ev_to_ebit: Ratio; // Enterprise Value to EBIT (TTM)
   /**
    * --- 3. Profitability ---
    */
-  gross_margin_ttm: Percent; // Gross Margin (TTM)
-  operating_margin_ttm: Percent; // Operating Margin (TTM)
-  pre_tax_margin_ttm: Percent; // Pre-Tax Margin (TTM)
-  net_margin_ttm: Percent; // Net Margin (TTM)
-  free_cash_flow_margin_ttm: Percent; // Free Cash Flow Margin (TTM)
-  return_on_assets_fq: Percent; // Return on Assets (FQ)
-  return_on_equity_fq: Percent; // Return on Equity (FQ)
-  return_on_invested_capital_fq: Percent; // Return on Invested Capital (FQ)
+  gross_margin: Percent; // Gross Margin (TTM)
+  operating_margin: Percent; // Operating Margin (TTM)
+  pre_tax_margin: Percent; // Pre-Tax Margin (TTM)
+  net_margin: Percent; // Net Margin (TTM)
+  fcf_margin: Percent; // Free Cash Flow Margin (TTM)
+  roa: Percent; // Return on Assets (FQ)
+  roe: Percent; // Return on Equity (FQ)
+  roic: Percent; // Return on Invested Capital (FQ)
   /**
    * --- 4. Income Statement ---
    */
-  total_revenue_ttm: Money; // Total Revenue (TTM)
-  total_revenue_yoy_growth_ttm: Percent; // Total Revenue YoY Growth (TTM)
-  gross_profit_ttm: Money; // Gross Profit (TTM)
-  oper_income_ttm: Money; // Operating Income (TTM)
-  net_income_ttm: Money; // Net Income (TTM)
-  ebitda_ttm: Money; // EBITDA (TTM)
-  earnings_per_share_diluted_ttm: Money; // Earnings Per Share Diluted (TTM)
-  earnings_per_share_diluted_yoy_growth_ttm: Percent; // EPS Diluted YoY Growth (TTM)
-  fiscal_period_current: string; // Example: "2026-Q1"
-  fiscal_period_end_current: Epoch; // Fiscal end date (unix timestamp)
+  total_revenue: Money; // Total Revenue (TTM)
+  revenue_growth: Percent; // Total Revenue YoY Growth (TTM)
+  gross_profit: Money; // Gross Profit (TTM)
+  operating_income: Money; // Operating Income (TTM)
+  net_income: Money; // Net Income (TTM)
+  ebitda: Money; // EBITDA (TTM)
+  eps: Money; // Earnings Per Share Diluted (TTM)
+  eps_growth: Percent; // EPS Diluted YoY Growth (TTM)
+  fiscal_period: string; // Example: "2026-Q1"
+  fiscal_period_end: Epoch; // Fiscal end date (unix timestamp)
   /**
    * --- 5. Balance Sheet ---
    */
-  total_assets_fq: Money; // Total Assets (FQ)
-  total_current_assets_fq: Money; // Total Current Assets (FQ)
-  cash_n_short_term_invest_fq: Money; // Cash & Short Term Investments (FQ)
-  total_liabilities_fq: Money; // Total Liabilities (FQ)
-  total_debt_fq: Money; // Total Debt (FQ)
-  net_debt_fq: Money; // Net Debt (FQ)
-  total_equity_fq: Money; // Total Equity (FQ)
-  current_ratio_fq: Ratio; // Current Ratio (FQ) - Current Assets vs Current Debt
-  quick_ratio_fq: Ratio; // Quick Ratio (FQ) - Strict liquidity metric
-  debt_to_equity_fq: Ratio; // Debt to Equity Ratio (FQ)
-  cash_n_short_term_invest_to_total_debt_fq: Ratio; // Cash to Total Debt Ratio (FQ)
+  total_assets: Money; // Total Assets (FQ)
+  total_current_assets: Money; // Total Current Assets (FQ)
+  cash_and_short_term_invest: Money; // Cash & Short Term Investments (FQ)
+  total_liabilities: Money; // Total Liabilities (FQ)
+  total_debt: Money; // Total Debt (FQ)
+  net_debt: Money; // Net Debt (FQ)
+  total_equity: Money; // Total Equity (FQ)
+  current_ratio: Ratio; // Current Ratio (FQ) - Current Assets vs Current Debt
+  quick_ratio: Ratio; // Quick Ratio (FQ) - Strict liquidity metric
+  de_ratio: Ratio; // Debt to Equity Ratio (FQ)
+  cash_to_total_debt: Ratio; // Cash to Total Debt Ratio (FQ)
   /**
    * --- 6. Cashflow ---
    */
-  cash_f_operating_activities_ttm: Money; // Cash from Operating Activities (TTM)
-  cash_f_investing_activities_ttm: Money; // Cash from Investing Activities (TTM)
-  cash_f_financing_activities_ttm: Money; // Cash from Financing Activities (TTM)
-  free_cash_flow_ttm: Money; // Free Cash Flow (TTM)
-  neg_capital_expenditures_ttm: Money; // Capital Expenditures (TTM)
+  operating_cashflow: Money; // Cash from Operating Activities (TTM)
+  investing_cashflow: Money; // Cash from Investing Activities (TTM)
+  financing_cashflow: Money; // Cash from Financing Activities (TTM)
+  free_cashflow: Money; // Free Cash Flow (TTM)
+  capital_expenditures: Money; // Capital Expenditures (TTM)
   /**
    * --- 7. Dividends ---
    */
-  dividends_yield_current: Percent; // Current Dividend Yield
-  dividend_payout_ratio_ttm: Percent; // Dividend Payout Ratio (TTM)
-  dps_common_stock_prim_issue_fy: Money; // Dividends Per Share (FY)
-  dps_common_stock_prim_issue_yoy_growth_fy: Percent; // Dividends Per Share YoY Growth (FY)
+  current_dividend_yield: Percent; // Current Dividend Yield
+  dividend_payout_ratio: Percent; // Dividend Payout Ratio (TTM)
+  dps: Money; // Dividends Per Share (FY)
+  dps_yoy_growth: Percent; // Dividends Per Share YoY Growth (FY)
   /**
    * --- 8. Technicals & Momentum ---
    */
-  RSI: RawNum; // Relative Strength Index (14)
-  Mom: RawNum; // Momentum indicator
-  AO: RawNum; // Awesome Oscillator
-  CCI20: RawNum; // Commodity Channel Index (20)
-  'Stoch.K': RawNum; // Stochastic %K
-  'Stoch.D': RawNum; // Stochastic %D
-  TechRating_1D: RawNum; // AI Tech Rating 1D (-1 Strong Sell to 1 Strong Buy)
+  rsi: RawNum; // Relative Strength Index (14)
+  momentum: RawNum; // Momentum indicator
+  awesome_oscillator: RawNum; // Awesome Oscillator
+  cci20: RawNum; // Commodity Channel Index (20)
+  stoch_k: RawNum; // Stochastic %K
+  stoch_d: RawNum; // Stochastic %D
+  tech_rating_1d: RawNum; // AI Tech Rating 1D (-1 Strong Sell to 1 Strong Buy)
 }
 export type Percent = number /* float64 */;
 export type Ratio = number /* float64 */;
