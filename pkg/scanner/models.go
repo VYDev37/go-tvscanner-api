@@ -86,7 +86,7 @@ type TVAsset struct {
 	CCI20             RawNum `json:"cci20"`              // Commodity Channel Index (20)
 	StochK            RawNum `json:"stoch_k"`            // Stochastic %K
 	StochD            RawNum `json:"stoch_d"`            // Stochastic %D
-	TechRating1D      RawNum `json:"tech_rating_1d"`     // AI Tech Rating 1D (-1 Strong Sell to 1 Strong Buy)
+	TechRating1D      string `json:"tech_rating_1d"`     // AI Tech Rating 1D (-1 Strong Sell to 1 Strong Buy)
 }
 
 type Percent float64

@@ -162,7 +162,7 @@ func FetchStockData(opts FetcherOptions) ([]TVAsset, error) {
 			CCI20:             RawNum(convertToFloat(row["CCI20"])),
 			StochK:            RawNum(convertToFloat(row["Stoch.K"])),
 			StochD:            RawNum(convertToFloat(row["Stoch.D"])),
-			TechRating1D:      RawNum(convertToFloat(row["TechRating_1D"])),
+			TechRating1D:      fmt.Sprintf("%s", row["TechRating_1D"]),
 		})
 	}
 
